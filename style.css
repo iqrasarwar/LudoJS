@@ -1,0 +1,70 @@
+body{
+   margin: 0%;
+   padding: 0%;
+}
+.ludo
+{
+   background-image: url("background.jfif");
+   width: 100vw;
+   height:100vh;
+   box-sizing: border-box;
+   /* opacity: 0.5; */
+}
+.ludoPlayArea
+{
+   display: grid;
+   grid-template-columns: auto 10% 10% 10% auto;
+   grid-template-rows: auto 10% 10% 10% auto;
+   width: 80vw;
+   height: 100vh;
+   margin: auto;
+}
+.cell
+{
+   background-color: rgb(305, 305, 305);
+   border: 1px black solid;
+}
+.redstore, .redh
+{
+   background-color: red;
+   border: none;
+}
+.yellowstore, .yellowh
+{
+   background-color: yellow;
+   border: none;
+}
+.greenstore, .greenh
+{
+   background-color: rgb(18, 216, 18);
+    border: none;
+}
+.bluestore, .blueh
+{
+   background-color: blue;
+   border: none;
+}
+.redtogreen
+{
+   border: none;
+   background: linear-gradient(to top right, red 0%, red 50%, rgb(18, 216, 18) 50%, rgb(18, 216, 18) 100%);
+}
+.greentoyellow
+{
+   background: linear-gradient(to bottom right, rgb(18, 216, 18) 0%, rgb(18, 216, 18) 50%, yellow 50%, yellow 100%);
+   border: none;
+}
+.yellowtoblue
+{
+   background: linear-gradient(to bottom left, yellow 0%, yellow 50%, blue 50%, blue 100%);
+   border: none;
+}
+.bluetored
+{
+   background: linear-gradient(to top left, blue 0%, blue 50%, red 50%, red 100%);
+   border: none;
+}
+.mix{
+   background-image: linear-gradient(rgb(18, 216,18), red,yellow,blue);
+   border: none;
+}
