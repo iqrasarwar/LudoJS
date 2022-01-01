@@ -44,8 +44,6 @@ function freeDice()
    let dice = event.target;
    let id = getId(event.target.id);
    let startPos = document.getElementById(id);
-   // console.log(startPos);
-   // console.log(dice);
    startPos.append(dice);
    document.getElementsByClassName("DiceRoller")[0].onclick = DiceRoll;
    for (let index = 0; index < Dices.length; index++) {
@@ -59,6 +57,7 @@ function freeDice()
 function transitDice()
 {
    let thisDiceIndex = 0;
+   let home = 0;
    for (let index = 0; index < Dices.length; index++) {
       if(event.target == Dices[index])
       {
@@ -67,31 +66,34 @@ function transitDice()
       Dices[index].onclick = false;
    }
    let transitionValue = diceRollResults;
+   let CanGoHome = CanGoToHome(thisDiceIndex,Pos[thisDiceIndex]);
    Pos[thisDiceIndex]+=transitionValue;
    if(Pos[thisDiceIndex]>52)
    Pos[thisDiceIndex] = (Pos[thisDiceIndex]%53)+1;
-   let ShouldGoHome =GoToHome(thisDiceIndex,Pos[thisDiceIndex],Pos[thisDiceIndex]-transitionValue);
-   console.log(ShouldGoHome);
-   // if(ShouldGoHome != 0)
-   // {
-   //    document.getElementById(GoHome(ShouldGoHome,Pos[thisDiceIndex])).append(event.target);
-   // }
-   // else{
-   //    document.getElementById("b" + Pos[thisDiceIndex]).append(event.target);
-   // }
-   document.getElementById("b" + Pos[thisDiceIndex]).append(event.target);
+   if(CanGoHome)
+      home = specifyHome(thisDiceIndex,Pos[thisDiceIndex]);
+   if(home != 0)
+   {
+      let appLoc = GoHome(home, Pos[thisDiceIndex]);
+      console.log(appLoc);
+      document.getElementById(appLoc).append(event.target);
+   }
+   else{
+      document.getElementById("b" + Pos[thisDiceIndex]).append(event.target);
+   }
    document.getElementsByClassName("DiceRoller")[0].onclick = DiceRoll;
    if(transitionValue < 6)
       document.getElementById("rollText").innerText=changeText(document.getElementById("rollText").innerText);
 }
-function GoHome(DiceToGo, newPosition, e)
+function GoHome(DiceToGo, newPosition)
 {
    let inHomePos = newPosition - DiceToGo;
    let GoId = "";
-   if(DiceToGo == 28) GoId ="b";
+   if(DiceToGo == 28) GoId ="u";
    else if(DiceToGo == 41) GoId ="r";
    else if(DiceToGo == 2) GoId ="g";
    else GoId = "y";
+   console.log(GoId);
    if(inHomePos > 6)
       return;
    else
@@ -100,16 +102,10 @@ function GoHome(DiceToGo, newPosition, e)
 //return the id of dice clicked
 function getId(e)
 {
-   let PosId = "";
-   if(e == "bdice1" || e == "bdice2" || e == "bdice3" || e == "bdice4")
-      PosId = "b30";
-   else if(e == "rdice1" || e == "rbdice2" || e == "rdice3" || e == "rdice4")
-      PosId = "b43";
-   else if(e == "gdice1" || e == "gdice2" || e == "gdice3" || e == "gdice4")
-      PosId = "b4";
-   else if(e == "ydice1" || e == "ybdice2" || e == "ydice3" || e == "ydice4")
-      PosId = "b17";
-   return PosId;
+   if(e == "bdice1" || e == "bdice2" || e == "bdice3" || e == "bdice4") return "b30";
+   else if(e == "rdice1" || e == "rdice2" || e == "rdice3" || e == "rdice4") return "b43";
+   else if(e == "gdice1" || e == "gdice2" || e == "gdice3" || e == "gdice4") return "b4";
+   else if(e == "ydice1" || e == "ydice2" || e == "ydice3" || e == "ydice4") return "b17";
 }
 //return the index for the dices of the player whoes turn comes i.e return 0 for blue 4 for red etc.
 function getIndex(player)
@@ -128,11 +124,33 @@ function changeText(player)
    else return "Player 1 Turn";
 }
 //tell if dice should go home or not
-function GoToHome(diceIndex, newPosIndex, currPosIndex)
+function CanGoToHome(diceIndex, newPosIndex)
 {
-   if(diceIndex < 4 && newPosIndex >= 28 && currPosIndex < 28) return 28;
-   else if(diceIndex < 8 && newPosIndex >= 41 && currPosIndex < 41) return 41;
-   else if(diceIndex < 12 && newPosIndex >= 2 && (currPosIndex < 2 || currPosIndex <= 52)) return 2;
-   else if(diceIndex < 16 && newPosIndex >= 15 && currPosIndex < 15) return 15;
+   if(diceIndex < 4 && newPosIndex >= 2 && newPosIndex <= 28) return true;
+   else if( diceIndex > 3 && diceIndex < 8 && newPosIndex >= 15 && newPosIndex <= 41) return true;
+   else if(diceIndex > 7 && diceIndex < 12)
+   {
+      if(newPosIndex >= 28 && newPosIndex <= 52) return true;
+      if(newPosIndex == 1 || newPosIndex == 2) return true;
+   }
+   else if(diceIndex > 11 && diceIndex < 16 )
+   {
+      if(newPosIndex >= 41 && newPosIndex <=52) return true;
+      if(newPosIndex >= 1 && newPosIndex <=15) return true;
+   }
+   return false;
+}
+function specifyHome(diceIndex, newPosIndex)
+{
+   if(diceIndex < 4 && newPosIndex >= 29 && newPosIndex <= 52) return 28;
+   else if( diceIndex > 3 && diceIndex < 8 && newPosIndex >= 42 && newPosIndex <= 52) return 41;
+   else if(diceIndex > 7 && diceIndex < 12)
+   {
+      if(newPosIndex >= 3 && newPosIndex < 28) return 2;
+   }
+   else if(diceIndex > 11 && diceIndex < 16 )
+   {
+      if(newPosIndex >= 16 && newPosIndex < 41) return 15;
+   }
    return 0;
 }
