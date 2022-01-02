@@ -3,6 +3,7 @@ let Pos = [30,30,30,30,43,43,43,43,4,4,4,4,17,17,17,17];
 let DicesStatus = [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false];
 let DiceValues = ["0.png","1.png","2.png","3.png","4.png","5.png","6.png"];
 let Dices = [document.getElementById("bdice1"), document.getElementById("bdice2"), document.getElementById("bdice3"),document.getElementById("bdice4"), document.getElementById("rdice1"), document.getElementById("rdice2"), document.getElementById("rdice3"),document.getElementById("rdice4"), document.getElementById("gdice1"),document.getElementById("gdice2"),document.getElementById("gdice3"),document.getElementById("gdice4"), document.getElementById("ydice1"),document.getElementById("ydice2"),document.getElementById("ydice3"),document.getElementById("ydice4")];
+let InHome = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
 
 function DiceRoll()
 {
@@ -63,29 +64,63 @@ function transitDice()
       {
          thisDiceIndex = index;
       }
-      Dices[index].onclick = false;
    }
    let transitionValue = diceRollResults;
-   let CanGoHome = CanGoToHome(thisDiceIndex,Pos[thisDiceIndex]);
-   Pos[thisDiceIndex]+=transitionValue;
-   if(Pos[thisDiceIndex]>52)
-   Pos[thisDiceIndex] = (Pos[thisDiceIndex]%53)+1;
-   if(CanGoHome)
-      home = specifyHome(thisDiceIndex,Pos[thisDiceIndex]);
-   if(home != 0)
+   transitedInHome = true;
+   if(InHome[thisDiceIndex] != 0)
    {
-      let appLoc = GoHome(home, Pos[thisDiceIndex]);
-      console.log(appLoc);
-      document.getElementById(appLoc).append(event.target);
+      GetIntoHome = true;
+      console.log(InHome[thisDiceIndex]);
+      InHome[thisDiceIndex] += transitionValue;
+      if(InHome[thisDiceIndex] <= 6)
+      {
+         let id = "";
+         if(thisDiceIndex < 4) id ="u";
+         else if(thisDiceIndex > 3 && thisDiceIndex < 8) id ="r";
+         else if(thisDiceIndex > 7 && thisDiceIndex < 12) id ="g";
+         else id = "y";
+         document.getElementById(id+InHome[thisDiceIndex]).append(event.target);
+      }
+      else
+      {
+         InHome[thisDiceIndex] -= transitionValue;
+      }
+      if(InHome[thisDiceIndex] == 6)
+      {
+         var audio = new Audio('win.wav');
+         audio.play();
+      }
    }
-   else{
-      document.getElementById("b" + Pos[thisDiceIndex]).append(event.target);
+   else
+   {
+      let CanGoHome = CanGoToHome(thisDiceIndex,Pos[thisDiceIndex]);
+      Pos[thisDiceIndex]+=transitionValue;
+      if(Pos[thisDiceIndex]>52)
+      Pos[thisDiceIndex] = (Pos[thisDiceIndex]%53)+1;
+      if(CanGoHome)
+         home = specifyHome(thisDiceIndex,Pos[thisDiceIndex]);
+      if(home != 0)
+      {
+         let appLoc = GoHome(home, Pos[thisDiceIndex],thisDiceIndex);
+         document.getElementById(appLoc).append(event.target);
+      }
+      else{
+         document.getElementById("b" + Pos[thisDiceIndex]).append(event.target);
+      }
+      transitedInHome = true;
    }
-   document.getElementsByClassName("DiceRoller")[0].onclick = DiceRoll;
-   if(transitionValue < 6)
+   if(transitedInHome != false)
+   {
+      console.log(transitedInHome);
+      for (let index = 0; index < Dices.length; index++)
+         Dices[index].onclick = false;
+      document.getElementsByClassName("DiceRoller")[0].onclick = DiceRoll;
+      if(transitionValue < 6)
       document.getElementById("rollText").innerText=changeText(document.getElementById("rollText").innerText);
+   }
 }
-function GoHome(DiceToGo, newPosition)
+
+function GoHome(DiceToGo, newPosition, thisDiceIndex)
 {
    let inHomePos = newPosition - DiceToGo;
    let GoId = "";
@@ -97,7 +132,10 @@ function GoHome(DiceToGo, newPosition)
    if(inHomePos > 6)
       return;
    else
-   return (GoId + inHomePos);
+   {
+      InHome[thisDiceIndex] = inHomePos;
+      return (GoId + inHomePos);
+   }
 }
 //return the id of dice clicked
 function getId(e)
@@ -154,3 +192,4 @@ function specifyHome(diceIndex, newPosIndex)
    }
    return 0;
 }
+
