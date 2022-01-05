@@ -1,9 +1,14 @@
 let diceRollResults = 0;
 let Pos = [30,30,30,30,43,43,43,43,4,4,4,4,17,17,17,17];
+let PosTraversed = [56,56,56,56,56,56,56,56,56,56,56,56,56,56,56,56];
 let DicesStatus = [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false];
+let OutStatus = [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false];
 let DiceValues = ["0.png","1.png","2.png","3.png","4.png","5.png","6.png"];
 let Dices = [document.getElementById("bdice1"), document.getElementById("bdice2"), document.getElementById("bdice3"),document.getElementById("bdice4"), document.getElementById("rdice1"), document.getElementById("rdice2"), document.getElementById("rdice3"),document.getElementById("rdice4"), document.getElementById("gdice1"),document.getElementById("gdice2"),document.getElementById("gdice3"),document.getElementById("gdice4"), document.getElementById("ydice1"),document.getElementById("ydice2"),document.getElementById("ydice3"),document.getElementById("ydice4")];
 let InHome = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+let DiceBoxes = [];
+for (let index = 0; index < 16; index++)
+   DiceBoxes[index] = "box" + index;
 
 function DiceRoll()
 {
@@ -23,10 +28,11 @@ function startGame()
          Dices[index].onclick = freeDice;
          next = false;
       }
-      else if(DicesStatus[index]==true)
+      else if(DicesStatus[index]==true && OutStatus[index]==false)
       {
          Dices[index].onclick = transitDice;
-         next = false;
+         if(transitionPossible(diceRollResults,index) == true)
+            next = false;
       }
       else
       {
@@ -66,11 +72,9 @@ function transitDice()
       }
    }
    let transitionValue = diceRollResults;
-   transitedInHome = true;
+   let trasnPossible = false;
    if(InHome[thisDiceIndex] != 0)
    {
-      GetIntoHome = true;
-      console.log(InHome[thisDiceIndex]);
       InHome[thisDiceIndex] += transitionValue;
       if(InHome[thisDiceIndex] <= 6)
       {
@@ -80,6 +84,8 @@ function transitDice()
          else if(thisDiceIndex > 7 && thisDiceIndex < 12) id ="g";
          else id = "y";
          document.getElementById(id+InHome[thisDiceIndex]).append(event.target);
+         trasnPossible = true;
+         PosTraversed[thisDiceIndex]-=transitionValue;
       }
       else
       {
@@ -87,14 +93,14 @@ function transitDice()
       }
       if(InHome[thisDiceIndex] == 6)
       {
-         var audio = new Audio('win.wav');
-         audio.play();
+        OutStatus[thisDiceIndex] = true;
       }
    }
    else
    {
       let CanGoHome = CanGoToHome(thisDiceIndex,Pos[thisDiceIndex]);
       Pos[thisDiceIndex]+=transitionValue;
+      PosTraversed[thisDiceIndex]-=transitionValue;
       if(Pos[thisDiceIndex]>52)
       Pos[thisDiceIndex] = (Pos[thisDiceIndex]%53)+1;
       if(CanGoHome)
@@ -105,13 +111,13 @@ function transitDice()
          document.getElementById(appLoc).append(event.target);
       }
       else{
+         killDice(Pos[thisDiceIndex], thisDiceIndex);
          document.getElementById("b" + Pos[thisDiceIndex]).append(event.target);
       }
-      transitedInHome = true;
+      trasnPossible = true;
    }
-   if(transitedInHome != false)
+   if(trasnPossible == true)
    {
-      console.log(transitedInHome);
       for (let index = 0; index < Dices.length; index++)
          Dices[index].onclick = false;
       document.getElementsByClassName("DiceRoller")[0].onclick = DiceRoll;
@@ -128,7 +134,6 @@ function GoHome(DiceToGo, newPosition, thisDiceIndex)
    else if(DiceToGo == 41) GoId ="r";
    else if(DiceToGo == 2) GoId ="g";
    else GoId = "y";
-   console.log(GoId);
    if(inHomePos > 6)
       return;
    else
@@ -148,18 +153,18 @@ function getId(e)
 //return the index for the dices of the player whoes turn comes i.e return 0 for blue 4 for red etc.
 function getIndex(player)
 {
-   if(player == "Player 1 Turn") return 0;
-   else if(player == "Player 2 Turn") return 4;
-   else if(player == "Player 3 Turn")  return 8;
+   if(player == "Player 1 Blue Turn") return 0;
+   else if(player == "Player 2 Red Turn") return 4;
+   else if(player == "Player 3 Green Turn")  return 8;
    else return 12;
 }
 //set new player text
 function changeText(player)
 {
-   if(player == "Player 1 Turn") return "Player 2 Turn";
-   else if(player == "Player 2 Turn") return "Player 3 Turn";
-   else if(player == "Player 3 Turn")  return "Player 4 Turn";
-   else return "Player 1 Turn";
+   if(player == "Player 1 Blue Turn") return "Player 2 Red Turn";
+   else if(player == "Player 2 Red Turn") return "Player 3 Green Turn";
+   else if(player == "Player 3 Green Turn")  return "Player 4 Yellow Turn";
+   else return "Player 1 Blue Turn";
 }
 //tell if dice should go home or not
 function CanGoToHome(diceIndex, newPosIndex)
@@ -192,4 +197,114 @@ function specifyHome(diceIndex, newPosIndex)
    }
    return 0;
 }
+//kill the dice
+function killDice(DiceLoc,thisDiceIndex)
+{
+   if(DiceLoc == 51 || DiceLoc == 4 || DiceLoc == 43 || DiceLoc == 38 || DiceLoc == 12 || DiceLoc == 17 || DiceLoc == 25 || DiceLoc == 30)
+      return;
+   else
+   {
+      let x = document.getElementById("b"+DiceLoc);
+      if(x.childNodes.length > 0)
+      {
+         let y = x.childNodes;
+         let backToStore = [];
+         let Back = [];
+         let childs = y.length;
+         let copy = [];
+         for (let index = 0; index < childs; index++)
+         {
+               backToStore[index]=y[index];
+               Back[index] = document.getElementById(y[index].id);
+               copy[index] = y[index];
+         }
+         for (let index = 0; index < childs; index++)
+         {
+            if(sameColorDices(copy[index].id,Dices[thisDiceIndex].id))
+            {
+               backToStore[index]="";
+               Back[index]="";
+            }
+            else
+               x.removeChild(backToStore[index]);
+         }
+         for (let index = 0; index < Dices.length; index++)
+         {
+            for(let j = 0; j < Back.length; j++)
+            {
+               if(Back[j] == Dices[index])
+               {
+                  document.getElementById(DiceBoxes[index]).append(backToStore[j]);
+                  let posStr = getId(Back[j].id);
+                  posStr = posStr.substring(1);
+                  posStr = parseInt(posStr);
+                  console.log(Pos[index]);
+                  Pos[index] = posStr;
+                  PosTraversed[index]=56;
+                  DicesStatus[index] = false;
+               }
+            }
+         }
 
+      }
+   }
+}
+function sameColorDices(c1,c2)
+{
+   c1 = c1.substring(0,1);
+   c2 = c2.substring(0,1);
+   console.log(c1);
+   console.log(c2);
+   if(c1==c2)
+   return true;
+   return false;
+}
+function transitionPossible(value,diceIndex)
+{
+   let possible = false;
+   if(diceIndex < 4 )
+   {
+      for(let i =0;i<4;i++)
+      {
+         if(PosTraversed[i] >= value)
+         {
+            if(DicesStatus[i]==true)
+               possible = true;
+         }
+      }
+   }
+   else if( diceIndex > 3 && diceIndex < 8 )
+   {
+      for(let i =4;i<8;i++)
+      {
+         if(PosTraversed[i] >= value)
+         {
+            if(DicesStatus[i]==true)
+               possible = true;
+         }
+      }
+   }
+   else if(diceIndex > 7 && diceIndex < 12)
+   {
+      for(let i =8;i<12;i++)
+      {
+         if(PosTraversed[i] >= value)
+         {
+            if(DicesStatus[i]==true)
+               possible = true;
+         }
+      }
+   }
+   else if(diceIndex > 11 && diceIndex < 16 )
+   {
+      for(let i =12;i<16;i++)
+      {
+         if(PosTraversed[i] >= value)
+         {
+            if(DicesStatus[i]==true)
+               possible = true;
+         }
+      }
+   }
+   return possible;
+}

@@ -29,21 +29,25 @@ body{
 {
    background-color: red;
    border: none;
+   overflow: auto;
 }
 .yellowstore, .yellowh
 {
    background-color: yellow;
    border: none;
+   overflow: auto;
 }
 .greenstore, .greenh
 {
    background-color: rgb(18, 216, 18);
     border: none;
+    overflow: auto;
 }
 .bluestore, .blueh
 {
    background-color: blue;
    border: none;
+   overflow: auto;
 }
 .redtogreen
 {
@@ -117,15 +121,19 @@ body{
 .dicebox
 {
    display: flex;
+   flex-direction: row;
+   flex-wrap: wrap;
    align-items: center;
    justify-content: center;
 }
  .dice
 {
-   width: 30px;
-   height: 30px;
+   width: 20px;
+   height: 20px;
    border-radius: 20px;
    border: 3px solid black;
+   margin: auto;
+   overflow: auto;
 }
 .redstore .dice, .redDice
 {
@@ -152,6 +160,7 @@ body{
 {
    border: black 1px solid;
    width: 16.66%;
+   overflow: auto;
 }
 .col
 {
@@ -161,6 +170,7 @@ body{
 .col .boxes{
    height: 16.66%;
    border: black 1px solid;
+   overflow: auto;
 }
 .red, .redstop{
    background-color: red;

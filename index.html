@@ -9,7 +9,7 @@
 </head>
 <body>
    <div class="DiceRoller" onclick="DiceRoll()">
-      <p id="rollText">Player 1 Turn</p>
+      <p id="rollText">Player 1 Blue Turn</p>
       <div id="RollDiv">
          <img src="0.png" alt="Click to roll dice" id="RollBox">
       </div>
@@ -18,153 +18,153 @@
       <div class="ludoPlayArea">
          <div class="cell redstore">
             <div class="redg">
-               <div class="dicebox"> <div class="dice redDice" id="rdice1"></div></div>
-               <div class="dicebox"> <div class="dice redDice" id="rdice2"></div></div>
-               <div class="dicebox"> <div class="dice redDice" id="rdice3"></div></div>
-               <div class="dicebox"> <div class="dice redDice" id="rdice4"></div></div>
+               <div class="dicebox" id="box4"> <div class="dice redDice" id="rdice1"></div></div>
+               <div class="dicebox" id="box5"> <div class="dice redDice" id="rdice2"></div></div>
+               <div class="dicebox" id="box6"> <div class="dice redDice" id="rdice3"></div></div>
+               <div class="dicebox" id="box7"> <div class="dice redDice" id="rdice4"></div></div>
             </div>
          </div>
          <div class="cell col col1">
-            <div class="boxes" id="b1">b1</div>
-            <div class="boxes" id="b52">b52</div>
-            <div class="boxes greenstop" id="b51">b51</div>
-            <div class="boxes" id="b50">b50</div>
-            <div class="boxes" id="b49">b49</div>
-            <div class="boxes" id="b48">b48</div>
+            <div class="boxes" id="b1"></div>
+            <div class="boxes" id="b52"></div>
+            <div class="boxes greenstop" id="b51"></div>
+            <div class="boxes" id="b50"></div>
+            <div class="boxes" id="b49"></div>
+            <div class="boxes" id="b48"></div>
          </div>
          <div class="cell col col2">
-            <div class="boxes"id="b2">b2</div>
-            <div class="boxes green" id="g1">g1</div>
-            <div class="boxes green" id="g2">g2</div>
-            <div class="boxes green" id="g3">g3</div>
-            <div class="boxes green" id="g4">g4</div>
-            <div class="boxes green" id="g5">g5</div>
+            <div class="boxes"id="b2"></div>
+            <div class="boxes green" id="g1"></div>
+            <div class="boxes green" id="g2"></div>
+            <div class="boxes green" id="g3"></div>
+            <div class="boxes green" id="g4"></div>
+            <div class="boxes green" id="g5"></div>
          </div>
          <div class="cell col col3">
-            <div class="boxes" id="b3">b3</div>
-            <div class="boxes green" id="b4">b4</div>
-            <div class="boxes" id="b5">b5</div>
-            <div class="boxes"id="b6">b6</div>
-            <div class="boxes"id="b7">b7</div>
-            <div class="boxes"id="b8">b8</div>
+            <div class="boxes" id="b3"></div>
+            <div class="boxes green" id="b4"></div>
+            <div class="boxes" id="b5"></div>
+            <div class="boxes"id="b6"></div>
+            <div class="boxes"id="b7"></div>
+            <div class="boxes"id="b8"></div>
          </div>
          <div class="cell greenstore">
             <div class="greeng">
-               <div class="dicebox"> <div class="dice greenDice" id="gdice1"></div></div>
-               <div class="dicebox"> <div class="dice greenDice" id="gdice2"></div></div>
-               <div class="dicebox"> <div class="dice greenDice" id="gdice3"></div></div>
-               <div class="dicebox"> <div class="dice greenDice" id="gdice4"></div></div>
+               <div class="dicebox" id="box8"> <div class="dice greenDice" id="gdice1"></div></div>
+               <div class="dicebox" id="box9"> <div class="dice greenDice" id="gdice2"></div></div>
+               <div class="dicebox" id="box10"> <div class="dice greenDice" id="gdice3"></div></div>
+               <div class="dicebox" id="box11"> <div class="dice greenDice" id="gdice4"></div></div>
             </div>
          </div>
          <div class="cell row row1">
-            <div class="boxes" id="b42">b42</div>
-            <div class="boxes red" id="b43">b43</div>
-            <div class="boxes" id="b44">b44</div>
-            <div class="boxes" id="b45">b45</div>
-            <div class="boxes" id="b46">b46</div>
-            <div class="boxes" id="b47">b47</div>
+            <div class="boxes" id="b42"></div>
+            <div class="boxes red" id="b43"></div>
+            <div class="boxes" id="b44"></div>
+            <div class="boxes" id="b45"></div>
+            <div class="boxes" id="b46"></div>
+            <div class="boxes" id="b47"></div>
          </div>
          <div class="cell redtogreen"></div>
-         <div class="cell greenh" id="g6">g6</div>
+         <div class="cell greenh" id="g6"></div>
          <div class="cell greentoyellow"></div>
          <div class="cell row row2">
-            <div class="boxes" id="b9">b9</div>
-            <div class="boxes" id="b10">b10</div>
-            <div class="boxes" id="b11">b11</div>
-            <div class="boxes yellowstop" id="b12">b12</div>
-            <div class="boxes" id="b13">b13</div>
-            <div class="boxes" id="b14">b14</div>
+            <div class="boxes" id="b9"></div>
+            <div class="boxes" id="b10"></div>
+            <div class="boxes" id="b11"></div>
+            <div class="boxes yellowstop" id="b12"></div>
+            <div class="boxes" id="b13"></div>
+            <div class="boxes" id="b14"></div>
          </div>
          <div class="cell row row3">
-            <div class="boxes" id="b41">b41</div>
-            <div class="boxes red" id="r1">r1</div>
-            <div class="boxes red" id="r2">r2</div>
-            <div class="boxes red" id="r3">r3</div>
-            <div class="boxes red" id="r4">r4</div>
-            <div class="boxes red" id="r5">r5</div>
+            <div class="boxes" id="b41"></div>
+            <div class="boxes red" id="r1"></div>
+            <div class="boxes red" id="r2"></div>
+            <div class="boxes red" id="r3"></div>
+            <div class="boxes red" id="r4"></div>
+            <div class="boxes red" id="r5"></div>
          </div>
-         <div class="cell redh" id="r6">r6</div>
+         <div class="cell redh" id="r6"></div>
          <div class="cell mix"></div>
-         <div class="cell yellowh" id="y6">y6</div>
+         <div class="cell yellowh" id="y6"></div>
          <div class="cell row row4">
-            <div class="boxes yellow" id="y5">y5</div>
-            <div class="boxes yellow" id="y4">y4</div>
-            <div class="boxes yellow" id="y3">y3</div>
-            <div class="boxes yellow" id="y2">y3</div>
-            <div class="boxes yellow" id="y1">y1</div>
-            <div class="boxes" id="b15">b15</div>
+            <div class="boxes yellow" id="y5"></div>
+            <div class="boxes yellow" id="y4"></div>
+            <div class="boxes yellow" id="y3"></div>
+            <div class="boxes yellow" id="y2"></div>
+            <div class="boxes yellow" id="y1"></div>
+            <div class="boxes" id="b15"></div>
          </div>
          <div class="cell row row5">
-            <div class="boxes" id="b40">b40</div>
-            <div class="boxes" id="b39">b39</div>
-            <div class="boxes redstop" id="b38">b38</div>
-            <div class="boxes" id="b37">b37</div>
-            <div class="boxes" id="b36">b36</div>
-            <div class="boxes" id="b35">b35</div>
+            <div class="boxes" id="b40"></div>
+            <div class="boxes" id="b39"></div>
+            <div class="boxes redstop" id="b38"></div>
+            <div class="boxes" id="b37"></div>
+            <div class="boxes" id="b36"></div>
+            <div class="boxes" id="b35"></div>
          </div>
          <div class="cell bluetored"></div>
-         <div class="cell blueh" id="u6">u6</div>
+         <div class="cell blueh" id="u6"></div>
          <div class="cell yellowtoblue"></div>
          <div class="cell row row6">
-            <div class="boxes" id="b21">b21</div>
-            <div class="boxes" id="b20">b20</div>
-            <div class="boxes" id="b19">b19</div>
-            <div class="boxes"id="b18">b18</div>
-            <div class="boxes yellow" id="b17">b17</div>
-            <div class="boxes" id="b16">b16</div>
+            <div class="boxes" id="b21"></div>
+            <div class="boxes" id="b20"></div>
+            <div class="boxes" id="b19"></div>
+            <div class="boxes"id="b18"></div>
+            <div class="boxes yellow" id="b17"></div>
+            <div class="boxes" id="b16"></div>
          </div>
          <div class="cell bluestore">
             <div class="blueg">
-               <div class="dicebox">
+               <div class="dicebox" id="box0">
                   <div class="dice blueDice" id="bdice1"></div>
                </div>
-               <div class="dicebox">
+               <div class="dicebox" id="box1">
                   <div class="dice blueDice" id="bdice2"></div>
                </div>
-               <div class="dicebox">
+               <div class="dicebox" id="box2">
                   <div class="dice blueDice" id="bdice3"></div>
                </div>
-               <div class="dicebox">
+               <div class="dicebox" id="box3">
                   <div class="dice blueDice" id="bdice4"></div>
                </div>
             </div>
          </div>
          <div class="cell col col4">
-            <div class="boxes" id="b34">b34</div>
-            <div class="boxes" id = "b33">b33</div>
-            <div class="boxes" id="b32">b32</div>
-            <div class="boxes" id="b31">b31</div>
-            <div class="boxes blue" id = "b30" >b30</div>
-            <div class="boxes" id="b29">b29</div>
+            <div class="boxes" id="b34"></div>
+            <div class="boxes" id = "b33"></div>
+            <div class="boxes" id="b32"></div>
+            <div class="boxes" id="b31"></div>
+            <div class="boxes blue" id = "b30" ></div>
+            <div class="boxes" id="b29"></div>
          </div>
          <div class="cell col col5">
-            <div class="boxes blue" id="u5">u5</div>
-            <div class="boxes blue" id="u4">u4</div>
-            <div class="boxes blue" id="u3">u3</div>
-            <div class="boxes blue" id="u2">u2</div>
-            <div class="boxes blue" id="u1">u1</div>
-            <div class="boxes" id="b28">b28</div>
+            <div class="boxes blue" id="u5"></div>
+            <div class="boxes blue" id="u4"></div>
+            <div class="boxes blue" id="u3"></div>
+            <div class="boxes blue" id="u2"></div>
+            <div class="boxes blue" id="u1"></div>
+            <div class="boxes" id="b28"></div>
          </div>
          <div class="cell col col6">
-            <div class="boxes" id="b22">b22</div>
-            <div class="boxes" id="b23">b23</div>
-            <div class="boxes" id="b24">b24</div>
-            <div class="boxes bluestop" id="b25">b25</div>
-            <div class="boxes" id="b26">b26</div>
-            <div class="boxes" id="b27">b27</div>
+            <div class="boxes" id="b22"></div>
+            <div class="boxes" id="b23"></div>
+            <div class="boxes" id="b24"></div>
+            <div class="boxes bluestop" id="b25"></div>
+            <div class="boxes" id="b26"></div>
+            <div class="boxes" id="b27"></div>
          </div>
          <div class="cell yellowstore">
             <div class="yellowg">
-               <div class="dicebox">
+               <div class="dicebox" id="box12">
                   <div class="dice yellowDice" id="ydice1"></div>
                </div>
-               <div class="dicebox">
+               <div class="dicebox" id="box13">
                   <div class="dice yellowDice" id="ydice2"></div>
                </div>
-               <div class="dicebox">
+               <div class="dicebox" id="box14">
                   <div class="dice yellowDice" id="ydice3"></div>
                </div>
-               <div class="dicebox">
+               <div class="dicebox" id="box15">
                   <div class="dice yellowDice" id="ydice4"></div>
                </div>
             </div>
