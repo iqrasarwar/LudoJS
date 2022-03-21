@@ -1,2 +1,2 @@
 # LudoJS
-this repo will contain graduall development of ludo in html css and js
+Published at: https://iqrasarwar.github.io/LudoJS/
